@@ -120,6 +120,31 @@ The extension automatically syncs pinned tabs when:
 - A new window is created
 - You click the "Resync Tabs" button
 
+## GitHub Actions
+
+This project uses GitHub Actions for automated builds and releases. When you push a tag starting with `v` (like `v1.0.0`), it will automatically:
+
+1. Build the extension
+2. Package it for production
+3. Create a GitHub release with the packaged ZIP file attached
+
+To create a new release:
+
+```bash
+# Update version in package.json and manifest.json
+npm run version 1.0.1
+
+# Commit the changes
+git add .
+git commit -m "Bump version to 1.0.1"
+
+# Create and push a tag
+git tag v1.0.1
+git push origin v1.0.1
+```
+
+The GitHub Actions workflow will then create a new release with the packaged extension.
+
 ## License
 
 MIT 
