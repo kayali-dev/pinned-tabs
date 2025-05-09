@@ -1,0 +1,40 @@
+{
+  "name": "tab-pinner",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "An Awesome Global Pinned Tabs Extension that allows you to set tabs to be automatically pinned",
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode=development",
+    "build:prod": "webpack --config webpack.config.js --mode=production",
+    "watch": "webpack --config webpack.config.js --watch --mode=development",
+    "generate-icons": "node scripts/generate-icons.js",
+    "package": "npm run build && node scripts/package-extension.js",
+    "package:prod": "npm run build:prod && node scripts/package-extension.js --production",
+    "version": "node scripts/update-version.js",
+    "cleanup": "node scripts/cleanup.js",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
+  },
+  "author": "Mahmoud Kayyali <mahmoud@kayali.dev>",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.26.0",
+    "@types/chrome": "^0.0.320",
+    "@typescript-eslint/eslint-plugin": "^8.32.0",
+    "@typescript-eslint/parser": "^8.32.0",
+    "archiver": "^7.0.1",
+    "canvas": "^3.1.0",
+    "copy-webpack-plugin": "^13.0.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.4.0",
+    "prettier": "^3.5.3",
+    "style-loader": "^4.0.0",
+    "ts-loader": "9.5.2",
+    "typescript": "^5.8.3",
+    "webpack": "^5.99.8",
+    "webpack-cli": "^6.0.1"
+  }
+}

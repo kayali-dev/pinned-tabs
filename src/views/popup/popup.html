@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Tab Pinner</title>
+    <link href="styles/common.css" rel="stylesheet">
+    <style>
+        body {
+            width: 300px;
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            background-color: #1c1c1e;
+            color: #e4e4e4;
+        }
+
+        .button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+
+        .action-group {
+            margin-top: 15px;
+        }
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #e4e4e4;
+        }
+
+        .match-type {
+            margin: 10px 0;
+            color: #e4e4e4;
+        }
+
+        p {
+            color: #e4e4e4;
+        }
+
+        label {
+            color: #b4b4b4;
+        }
+
+        input[type="radio"] {
+            accent-color: #4285f4;
+        }
+
+        input[type="text"] {
+            background-color: #2c2c2e;
+            color: #e4e4e4;
+            border: 1px solid #3a3a3c;
+        }
+
+        small {
+            color: #b4b4b4;
+        }
+
+        #wildcardBtn {
+            background-color: #3a3a3c;
+            color: #e4e4e4;
+            border: 1px solid #5a5a5c;
+        }
+    </style>
+</head>
+<body>
+<h3>Tab Pinner</h3>
+
+<div class="match-type">
+    <p>Match type:</p>
+    <label>
+        <input checked name="matchType" type="radio" value="exact_url"> Exact URL
+    </label>
+    <label>
+        <input name="matchType" type="radio" value="domain"> Domain only
+    </label>
+    <label>
+        <input name="matchType" type="radio" value="regex"> RegEx pattern
+    </label>
+    <div id="regexInputContainer" style="display: none; margin-top: 10px; width: 100%; box-sizing: border-box;">
+        <input id="regexInput" placeholder="Modify this pattern - use .* for any characters"
+               style="width: 100%; padding: 5px; box-sizing: border-box; font-size: 13px;"
+               type="text">
+        <div style="display: flex; margin-top: 5px; gap: 5px; width: 100%;">
+            <button id="wildcardBtn"
+                    style="padding: 5px; background-color: #3a3a3c; color: #e4e4e4; border: 1px solid #5a5a5c; border-radius: 3px; cursor: pointer; font-size: 13px; width: 100%;">
+                Make Path Wildcard
+            </button>
+        </div>
+        <small style="display: block; margin-top: 4px; color: #b4b4b4; font-size: 11px;">Example:
+            https://example\.com/path/?.* matches with or without trailing slash</small>
+    </div>
+</div>
+
+<button class="button primary" id="pinTabBtn">Pin Current Tab</button>
+
+<div class="action-group">
+    <button class="button success" id="openAllBtn">Open All Tabs</button>
+    <button class="button danger" id="closeAllBtn">Close All Pinned Tabs</button>
+    <button class="button secondary" id="syncTabsBtn">Resync Tabs</button>
+    <button class="button secondary" id="manageTabsBtn">Manage Pinned Tabs</button>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html> 
