@@ -40,14 +40,40 @@ jobs:
         run: |
           ZIP_FILE=$(find packages -name "pinned-tabs-v*.zip" | head -n 1)
           echo "zip_file=$ZIP_FILE" >> $GITHUB_OUTPUT
+          echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
         
       - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v1
+        uses: actions/github-script@v7
         with:
-          files: ${{ steps.find-zip.outputs.zip_file }}
-          draft: false
-          prerelease: false
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          script: |
+            const fs = require('fs');
+            
+            const tagName = context.ref.replace('refs/tags/', '');
+            const zipPath = '${{ steps.find-zip.outputs.zip_file }}';
+            const zipName = zipPath.split('/').pop();
+            
+            const releaseData = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: tagName,
+              name: `Release ${tagName}`,
+              draft: false,
+              prerelease: false,
+              generate_release_notes: true
+            };
+            
+            console.log(`Creating release for tag: ${tagName}`);
+            const release = await github.rest.repos.createRelease(releaseData);
+            
+            console.log(`Uploading asset: ${zipPath}`);
+            const zipContent = fs.readFileSync(zipPath);
+            
+            await github.rest.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.data.id,
+              name: zipName,
+              data: zipContent
+            });
+            
+            console.log('Release created successfully!'); 
